@@ -1,6 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { reducers } from './app.reducers';
+import { userSlice } from '../logic/store/user/user.slice';
 
 export const store = configureStore({
-  reducer: reducers,
+  reducer: {
+    user: userSlice.reducer,
+  },
 });
+
+export type StoreState = ReturnType<typeof store.getState>;

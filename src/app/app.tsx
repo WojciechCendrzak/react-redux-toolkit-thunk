@@ -1,12 +1,16 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectUser } from '../logic/store/user/user.selectors';
+import {
+  selectIsAuthenticated,
+  selectUser,
+} from '../logic/store/user/user.selectors';
 import { userSlice } from '../logic/store/user/user.slice';
 import { userThunks } from '../logic/store/user/user.thunks';
 
 export const App = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
+  const isAuthenticated = useSelector(selectIsAuthenticated);
 
   useEffect(() => {
     dispatch(userThunks.fetchUserById({ userId: '1' }));
@@ -28,7 +32,8 @@ export const App = () => {
   return (
     <div>
       <div>Thunk example</div>
-      {user && <div>{`${user.firstName}  ${user.lastName}`}</div>}
+      <div>{`Is Authenticated: ${isAuthenticated}`}</div>
+      {user && <div>{`${user.firstName} ${user.lastName}`}</div>}
       <button onClick={handleOnSetCustomUser}>set custom user</button>
       <button onClick={handleOnResetUser}>reset user</button>
     </div>
